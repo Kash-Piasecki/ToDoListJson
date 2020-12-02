@@ -13,14 +13,14 @@ public class TaskDataHandler {
         System.out.println("Please add task description");
         String description = scanner.nextLine();
         System.out.println("Please add task due date in format YYYY-MM-DD");
-        LocalDate dueDate = createDate();
+        LocalDate dueDate = getTaskDate();
         System.out.println("Is your task important: true/false");
-        boolean isImportant = createBoolean();
+        boolean isImportant = getIsImportant();
         return new Task(description, dueDate, isImportant);
     }
 
 
-    private static LocalDate createDate() {
+    private static LocalDate getTaskDate() {
         boolean isRightFormat = false;
         LocalDate deadline = null;
         do {
@@ -41,7 +41,7 @@ public class TaskDataHandler {
         return deadline;
     }
 
-    private static boolean createBoolean() {
+    private static boolean getIsImportant() {
         boolean isBoolean = false;
         boolean isImportant = false;
         do {
@@ -58,7 +58,7 @@ public class TaskDataHandler {
         return isImportant;
     }
 
-    private static int getInteger() {
+    private static int getTaskIndex() {
         System.out.println("Please select number to remove");
         boolean isInteger = false;
         int index = 0;
@@ -89,7 +89,7 @@ public class TaskDataHandler {
         if (tasks.isEmpty()) {
             System.err.println("Empty list. Add some tasks to remove them.");
         } else {
-            int index = TaskDataHandler.getInteger();
+            int index = TaskDataHandler.getTaskIndex();
             if (index >= 0 && index < tasks.size()) {
                 tasks.remove(index);
                 System.out.println("Value was successfully deleted.");

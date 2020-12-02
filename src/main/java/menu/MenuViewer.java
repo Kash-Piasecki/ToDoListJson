@@ -5,9 +5,6 @@ import dao.DataWriter;
 import task.Task;
 import task.TaskDataHandler;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,11 +29,8 @@ public class MenuViewer {
     }
 
     private void loadData() {
-        final Path path = Paths.get("taskList.json");
-        if (Files.exists(path)){
-            final DataReader dataReader = new DataReader();
-            tasks = dataReader.readDataFromFile();
-        }
+        final DataReader dataReader = new DataReader();
+        tasks = dataReader.readDataFromFile();
     }
 
     private void menu() {
@@ -52,14 +46,15 @@ public class MenuViewer {
             case "add" -> tasks.add(TaskDataHandler.createNewTask());
             case "remove" -> TaskDataHandler.removeTask(tasks);
             case "list" -> TaskDataHandler.printTaskList(tasks);
-            case "exit" -> exit();
+            case "exit" -> saveToFileAndExit();
             default -> System.err.println("Wrong input.");
         }
     }
 
-    private void exit() {
+    private void saveToFileAndExit() {
         final DataWriter dataWriter = new DataWriter(tasks);
         dataWriter.saveToFile();
+        scanner.close();
         System.exit(0);
     }
 }

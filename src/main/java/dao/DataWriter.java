@@ -11,14 +11,14 @@ import java.util.List;
 
 public class DataWriter {
         private final List<Task> tasks;
+        private final Path path = Paths.get("taskList.json");
 
     public DataWriter(List<Task> tasks) {
         this.tasks = tasks;
     }
 
     public void saveToFile(){
-        final Path path = Paths.get("taskList.json");
-        createFile(path);
+        createFile();
         Gson gson = new Gson();
         String jsonString = gson.toJson(tasks);
         try {
@@ -28,7 +28,7 @@ public class DataWriter {
         }
     }
 
-    private void createFile(Path path){
+    private void createFile(){
         if (!Files.exists(path)) {
             try {
                 Files.createFile(path);
